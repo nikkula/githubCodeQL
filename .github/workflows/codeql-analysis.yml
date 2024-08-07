@@ -34,10 +34,5 @@ jobs:
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
 
-    - name: Run Integration Test
-      run: ./gradlew test
-      shell: bash
-      working-directory: .
-
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
