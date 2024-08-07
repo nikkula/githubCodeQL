@@ -7,6 +7,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
+    @Test void FailTestCase() {
+       int result = App.getSum(10, 12);
+       int expected = 25;
+       assertEquals(expected,result);
+    }
+    
     @Test void getSum() {
        int result = App.getSum(10, 12);
        int expected = 22;
