@@ -37,7 +37,7 @@ jobs:
     - name: Run Integration Test
       run: ./gradlew test
       shell: bash
-      working-directory: .src/test/java
+      working-directory: ./test/java/simple/gradle/java/app
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
