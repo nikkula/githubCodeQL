@@ -43,7 +43,7 @@ jobs:
     - name: Build
       run: ./gradlew build --no-daemon
       shell: bash
-      working-directory: .src/main/java
+      working-directory: .
     
     - name: Run Integration Test
       run: ./gradlew test
