@@ -34,3 +34,13 @@ After the Application is built using the Build command, the test results report 
 
 This is a spot for a potential key/secret leak:
 test secret fy'hYW#^^1Y48w!/-9
+##############################################
+# CodeQL Testing
+Explanation of the Vulnerability:
+Insecure Deserialization:
+    In the App.java file, the code is deserializing an object from a byte array using ObjectInputStream. This process is vulnerable if the serialized data comes from an untrusted source, as it can lead to arbitrary code execution.
+    
+    The VulnerableClass contains a readResolve() method that is called automatically during deserialization. This method can be exploited to execute code during deserialization, which is a critical security risk.
+
+# Running the CodeQL Analysis
+When you run CodeQL analysis on this code, it should detect the insecure deserialization vulnerability in App.java and VulnerableClass.java and raise an alert.
