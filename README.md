@@ -34,6 +34,8 @@ After the Application is built using the Build command, the test results report 
 
 This is a spot for a potential key/secret leak:
 test secret fy'hYW#^^1Y48w!/-9
+
+
 ##############################################
 # CodeQL Testing
 Explanation of the Vulnerability:
