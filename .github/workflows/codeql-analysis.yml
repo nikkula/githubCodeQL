@@ -1,11 +1,11 @@
-name: CodeQL Test
+name: CodeQL-Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, 'feature/codeql' ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ main ]
+    branches: [ main, 'feature/codeql' ]
 
 jobs:
   analyze:
@@ -26,14 +26,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up the JDK used to run Gradle
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: gradle
+    
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
+    - name: Build
+      run: ./gradlew build
+      shell: bash
+      working-directory: .
+    
+    - name: Run Integration Test
+      run: ./gradlew test
+      shell: bash
+      working-directory: .src/test/java
+    
     # Run CodeQL Analysis for each microservice/module
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
@@ -46,13 +60,3 @@ jobs:
       with:
         name: codeql-results
         path: codeql-results
-
-    # - name: Generate and submit dependency graph for the PR
-    #   uses: gradle/actions/dependency-submission@v3
-    #   with:
-    #     build-scan-publish: true
-    #     build-scan-terms-of-service-url: "https://gradle.com/terms-of-service"
-    #     build-scan-terms-of-service-agree: "yes"
-  
-    # - name: Perform dependency review
-    #   uses: actions/dependency-review-action@v4
