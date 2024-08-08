@@ -12,4 +12,23 @@ public class App {
     public static void main(String[] args) {
             System.out.println("Sum is " + getSum(4,5));
     }
+
+    public static void maliciousCheck() {
+        // Simulate a malicious serialized object
+        byte[] maliciousData = getMaliciousData();
+
+        // Insecure deserialization
+        try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(maliciousData))) {
+            Object obj = ois.readObject();
+            System.out.println("Deserialized object: " + obj);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static byte[] getMaliciousData() {
+        // This method simulates receiving a malicious serialized object
+        // Normally, this would be data received from an external source
+        return new byte[]{ /* Malicious bytecode */ };
+    }
 }
