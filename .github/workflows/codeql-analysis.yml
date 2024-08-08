@@ -26,10 +26,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - uses: actions/setup-java@v4
+    - name: Set up the JDK used to run Gradle
+      uses: actions/setup-java@v4
       with:
-        java-version: 21
-        distribution: liberica
+        distribution: 'temurin'
+        java-version: '17'
         cache: gradle
     
     - name: Initialize CodeQL
@@ -37,9 +38,6 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
-    # - name: Autobuild
-    #   uses: github/codeql-action/autobuild@v2
-    
     - name: Build
       run: ./gradlew build
       shell: bash
